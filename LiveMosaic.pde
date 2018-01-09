@@ -8,7 +8,7 @@ int OUTPUT_WINDOW_WIDTH = 1280;
 int OUTPUT_WINDOW_HEIGHT = 960;
 
 static final int REFRESH_RATE = 1000;
-static final int GRANULARITY = 10;
+static final int GRANULARITY = 8;
 
 void settings() {
   fullScreen();
@@ -31,12 +31,14 @@ void draw() {
     float y = random(displayHeight/2);
     color c = video.get(int(x), int(y));
 
-    map(x, 0, displayWidth/2, 0, 1280);
-    map(y, 0, displayHeight/2, 0, 960);
+    map(x, 0, displayWidth/2, 0, OUTPUT_WINDOW_WIDTH);
+    map(y, 0, displayHeight/2, 0, OUTPUT_WINDOW_HEIGHT);
 
     fill(c);
     noStroke();
     ellipse(displayWidth/2 - OUTPUT_WINDOW_WIDTH/2 + x, displayHeight/2 - OUTPUT_WINDOW_HEIGHT/2 + y, 
             GRANULARITY, GRANULARITY);
   }
+  
+  filter(GRAY);
 }
