@@ -15,6 +15,12 @@ void settings() {
 }
 
 void setup() {
+  // Uncomment this section to check the available resolutions
+  //String[] cameras = Capture.list();
+  //for (int i = 0; i < cameras.length ; i++) {
+  //  println(cameras[i]);
+  //}
+  
   video = new Capture(this, displayWidth/2, displayHeight/2);
   video.start();
   background(0);
