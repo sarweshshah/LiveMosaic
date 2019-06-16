@@ -47,5 +47,5 @@ void draw() {
     ellipse(x, y, GRANULARITY, GRANULARITY);
   }
 
-  //filter(GRAY); // Select from GRAY, INVERT, POSTERIZE, ERODE
+  filter(POSTERIZE, 230); // Select from GRAY, INVERT, POSTERIZE, ERODE
 }
