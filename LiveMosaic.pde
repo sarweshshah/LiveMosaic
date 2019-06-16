@@ -2,16 +2,18 @@ import processing.video.*;
 
 Capture video;
 
-int CAMERA_WINDOW_HEIGHT = displayHeight/2;
-int CAMERA_WINDOW_WIDTH = displayWidth/2;
+int CAMERA_WINDOW_WIDTH = 1280;
+int CAMERA_WINDOW_HEIGHT = 720;
+
 int OUTPUT_WINDOW_WIDTH = 1280;
-int OUTPUT_WINDOW_HEIGHT = 960;
+int OUTPUT_WINDOW_HEIGHT = 720;
 
 static final int REFRESH_RATE = 1000;
 static final int GRANULARITY = 8;
 
 void settings() {
-  fullScreen();
+  //fullScreen();
+  size(OUTPUT_WINDOW_WIDTH, OUTPUT_WINDOW_HEIGHT);
 }
 
 void setup() {
@@ -20,8 +22,8 @@ void setup() {
   //for (int i = 0; i < cameras.length ; i++) {
   //  println(cameras[i]);
   //}
-  
-  video = new Capture(this, displayWidth/2, displayHeight/2);
+
+  video = new Capture(this, CAMERA_WINDOW_WIDTH, CAMERA_WINDOW_HEIGHT);
   video.start();
   background(0);
   frameRate(500);
@@ -33,18 +35,17 @@ void captureEvent(Capture video) {
 
 void draw() {
   for (int i = 0; i < REFRESH_RATE; i++) {
-    float x = random(displayWidth/2);
-    float y = random(displayHeight/2);
+    float x = random(CAMERA_WINDOW_WIDTH);
+    float y = random(CAMERA_WINDOW_HEIGHT);
     color c = video.get(int(x), int(y));
 
-    map(x, 0, displayWidth/2, 0, OUTPUT_WINDOW_WIDTH);
-    map(y, 0, displayHeight/2, 0, OUTPUT_WINDOW_HEIGHT);
+    x = map(x, 0, CAMERA_WINDOW_WIDTH, 0, width);
+    y = map(y, 0, CAMERA_WINDOW_HEIGHT, 0, height);
 
     fill(c);
     noStroke();
-    ellipse(displayWidth/2 - OUTPUT_WINDOW_WIDTH/2 + x, displayHeight/2 - OUTPUT_WINDOW_HEIGHT/2 + y, 
-            GRANULARITY, GRANULARITY);
+    ellipse(x, y, GRANULARITY, GRANULARITY);
   }
-  
-  filter(GRAY);
+
+  //filter(GRAY); // Select from GRAY, INVERT, POSTERIZE, ERODE
 }
